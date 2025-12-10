@@ -1,10 +1,8 @@
-#include "pch.h"
-
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
-#include <stdexcept>
+#include <windows.h>
 using namespace std;
 
 // === Базовый класс Pair ===
@@ -102,45 +100,46 @@ public:
 // === Главная функция ===
 int main() {
  
- setlocale(LC_ALL, "Russian");
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
 
 
- // Создание объектов
- Pair p1(2, 3);
- Pair p2(4, 5);
+    // Создание объектов
+    Pair p1(2, 3);
+    Pair p2(4, 5);
 
- cout << "p1 = " << p1.toString() << endl;
- cout << "p2 = " << p2.toString() << endl;
+    cout << "p1 = " << p1.toString() << endl;
+    cout << "p2 = " << p2.toString() << endl;
 
- Pair p3 = p1 + p2;
- cout << "p1 + p2 = " << p3.toString() << endl;
- cout << "p1.multiply() = " << p1.multiply() << endl;
+    Pair p3 = p1 + p2;
+    cout << "p1 + p2 = " << p3.toString() << endl;
+    cout << "p1.multiply() = " << p1.multiply() << endl;
 
- // Работа с комплексными числами
- Complex c1(2, 3);
- Complex c2(1, -4);
+    // Работа с комплексными числами
+    Complex c1(2, 3);
+    Complex c2(1, -4);
 
- cout << "\nc1 = " << c1.toString() << endl;
- cout << "c2 = " << c2.toString() << endl;
+    cout << "\nc1 = " << c1.toString() << endl;
+    cout << "c2 = " << c2.toString() << endl;
 
- Complex c3 = c1 * c2;
- cout << "c1 * c2 = " << c3.toString() << endl;
+    Complex c3 = c1 * c2;
+    cout << "c1 * c2 = " << c3.toString() << endl;
 
- Complex c4 = c1 - c2;
- cout << "c1 - c2 = " << c4.toString() << endl;
+    Complex c4 = c1 - c2;
+    cout << "c1 - c2 = " << c4.toString() << endl;
 
- // Массив объектов
- vector<Complex> arr = { Complex(1, 1), Complex(2, -1), Complex(0, 3) };
- cout << "\nМассив комплексных чисел:" << endl;
- for (auto& c : arr) {
-  cout << "  " << c.toString() << endl;
- }
+    // Массив объектов
+    vector<Complex> arr = { Complex(1, 1), Complex(2, -1), Complex(0, 3) };
+    cout << "\nМассив комплексных чисел:" << endl;
+    for (auto& c : arr) {
+    cout << "  " << c.toString() << endl;
+    }
 
- // Принцип подстановки (базовый указатель на производный объект)
- Pair* ptr = new Complex(5, -2);
- cout << "\nПринцип подстановки (Pair* -> Complex): "
-  << ptr->toString() << endl;
- delete ptr;
+    // Принцип подстановки (базовый указатель на производный объект)
+    Pair* ptr = new Complex(5, -2);
+    cout << "\nПринцип подстановки (Pair* -> Complex): "
+    << ptr->toString() << endl;
+    delete ptr;
 
- return 0;
+    return 0;
 }
