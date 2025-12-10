@@ -1,92 +1,123 @@
 #include <iostream>
-#include <stdexcept>
 #include <string>
+#include <windows.h>
 using namespace std;
 
-// Структура прямой
-struct Line {
-    double A, B, C;
-};
 
-// === Варианты собственных исключений ===
-
-// 1. Пустой класс
-class MyExceptionEmpty {};
-
-// 2. Класс с полями
-class MyExceptionWithFields {
+class BaseObject {
 public:
-    string message;
-    double A1, B1, A2, B2;
-    MyExceptionWithFields(string msg, double a1, double b1, double a2, double b2)
-        : message(msg), A1(a1), B1(b1), A2(a2), B2(b2) {}
+    virtual void read() = 0;
+    virtual void display() const = 0;
+    virtual string toString() const = 0;
+    virtual ~BaseObject() {}
 };
 
-// 3. Наследник от стандартного исключения
-class MyExceptionInherited : public runtime_error {
+
+// Битовая строка до 100 бит
+class BitString : public BaseObject {
+private:
+    unsigned char bits[100];
+    int length;
+
 public:
-    double A1, B1, A2, B2;
-    MyExceptionInherited(string msg, double a1, double b1, double a2, double b2)
-        : runtime_error(msg), A1(a1), B1(b1), A2(a2), B2(b2) {}
+    BitString(int len = 100) {
+        if (len > 100) len = 100;
+        length = len;
+        for (int i = 0; i < length; i++) bits[i] = 0;
+    }
+
+
+    // виртуальные методы
+    void read() override {
+        cout << "Введите битовую строку (0/1), длина = " << length << " бит:\n";
+        for (int i = 0; i < length; i++) {
+            char c;
+            cin >> c;
+            if (c == '0' || c == '1') bits[i] = c - '0';
+            else {
+                cout << "Неверный символ, принимается как 0\n";
+                bits[i] = 0;
+            }
+        }
+    }
+
+    void display() const override {
+        for (int i = 0; i < length; i++) cout << (int)bits[i];
+        cout << endl;
+    }
+
+    string toString() const override {
+        string s;
+        s.reserve(length);
+        for (int i = 0; i < length; i++) s += (bits[i] ? '1' : '0');
+        return s;
+    }
 };
 
-// === 1. Без спецификации исключений ===
-bool areLinesIndependent(Line l1, Line l2) {
-    double d = l1.A * l2.B - l2.A * l1.B;
-    if (d == 0)
-        throw invalid_argument("Прямые не существуют (совпадают или параллельны)");
-    return true;
-}
 
-// === 2. Со спецификацией throw() ===
-bool areLinesIndependentThrow(Line l1, Line l2) throw(invalid_argument) {
-    double d = l1.A * l2.B - l2.A * l1.B;
-    if (d == 0)
-        throw invalid_argument("Прямые не существуют (совпадают или параллельны)");
-    return true;
-}
+// PascalString 
+class PascalString : public BaseObject {
+private:
+    unsigned char data[256];  // data[0] = длина
+    int maxSize;
 
-// === 3. С конкретной спецификацией (стандартное исключение) ===
-bool areLinesIndependentStd(Line l1, Line l2) throw(runtime_error) {
-    double d = l1.A * l2.B - l2.A * l1.B;
-    if (d == 0)
-        throw runtime_error("Прямые не существуют (runtime_error)");
-    return true;
-}
+public:
+    PascalString(int maxLen = 255) {
+        if (maxLen > 255) maxLen = 255;
+        maxSize = maxLen;
+        data[0] = 0;
+    }
 
-// === 4. С собственным исключением ===
-bool areLinesIndependentCustom(Line l1, Line l2) throw(MyExceptionInherited) {
-    double d = l1.A * l2.B - l2.A * l1.B;
-    if (d == 0)
-        throw MyExceptionInherited("Собственное исключение: прямые не существуют", l1.A, l1.B, l2.A, l2.B);
-    return true;
-}
 
-// === Главная функция для демонстрации ===
+    // виртуальные методы
+    void read() override {
+        cout << "Введите строку (макс " << maxSize << " символов):\n";
+        string s;
+        getline(cin >> ws, s);
+
+        if ((int)s.size() > maxSize) s = s.substr(0, maxSize);
+
+        data[0] = s.size();
+        for (int i = 0; i < data[0]; i++) data[i + 1] = s[i];
+    }
+
+    void display() const override {
+        for (int i = 1; i <= data[0]; i++) cout << data[i];
+        cout << endl;
+    }
+
+    string toString() const override {
+        string s;
+        s.reserve(data[0]);
+        for (int i = 1; i <= data[0]; i++) s += data[i];
+        return s;
+    }
+};
+
+
+
+
+
+
 int main() {
-    setlocale(LC_ALL, "Russian");
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
 
-    Line l1 = {1, 2, 3};
-    Line l2 = {2, 4, 6}; // Параллельные прямые → d = 0
+    BaseObject* obj;
 
-    try {
-        cout << "=== Проверка без спецификации ===" << endl;
-        areLinesIndependent(l1, l2);
-        cout << "Прямые существуют!\n";
-    } catch (const exception &e) {
-        cerr << "Ошибка: " << e.what() << endl;
-    }
+    cout << "|---| BitString \n";
+    obj = new BitString(16);        // пример с длиной 16 бит
+    obj->read();
+    obj->display();
+    cout << "toString(): " << obj->toString() << "\n\n";
+    delete obj;
 
-    try {
-        cout << "\n=== Проверка с собственной спецификацией ===" << endl;
-        areLinesIndependentCustom(l1, l2);
-        cout << "Прямые существуют!\n";
-    } catch (const MyExceptionInherited &e) {
-        cerr << "Исключение: " << e.what()
-             << "\nПараметры: (" << e.A1 << ", " << e.B1
-             << ") и (" << e.A2 << ", " << e.B2 << ")\n";
-    }
+    cout << "|---| PascalString \n";
+    obj = new PascalString(20);     // строка до 20 символов
+    obj->read();
+    obj->display();
+    cout << "toString(): " << obj->toString() << "\n\n";
+    delete obj;
 
-    cout << "\nПрограмма завершена корректно.\n";
     return 0;
 }
