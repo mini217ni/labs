@@ -3,7 +3,8 @@
 #include <set>
 using namespace std;
 
-/* ======== 1 ======== */
+
+//|~~~~~ 1
 class Pair1 {
     double first;
     int second;
@@ -26,7 +27,8 @@ public:
 };
 Pair1 make_pair1(double a,int b) { Pair1 p; p.init(a,b); return p; }
 
-/* ======== 2 ======== */
+
+//|~~~~~ 2
 class Pair2 {
     double first, second;
 public:
@@ -37,7 +39,8 @@ public:
 };
 Pair2 make_pair2(double a,double b) { Pair2 p; p.init(a,b); return p; }
 
-/* ======== 3 ======== */
+
+//|~~~~~ 3
 class Pair3 {
     long long first,second;
 public:
@@ -55,7 +58,8 @@ public:
 };
 Pair3 make_pair3(long long a,long long b) { Pair3 p; p.init(a,b); return p; }
 
-/* ======== 4 ======== */
+
+//|~~~~~ 4
 class Pair4 {
     int denom,count;
 public:
@@ -76,7 +80,8 @@ public:
 };
 Pair4 make_pair4(int a,int b) { Pair4 p; p.init(a,b); return p; }
 
-/* ======== 5 ======== */
+
+//|~~~~~ 5
 class Pair5 {
     double price;
     int qty;
@@ -95,7 +100,8 @@ public:
 };
 Pair5 make_pair5(double a,int b) { Pair5 p; p.init(a,b); return p; }
 
-/* ======== 6 ======== */
+
+//|~~~~~ 6
 class Pair6 {
     int cal100;
     double kg;
@@ -114,7 +120,8 @@ public:
 };
 Pair6 make_pair6(int a,double b) { Pair6 p; p.init(a,b); return p; }
 
-/* ======== 7 ======== */
+
+//|~~~~~ 7
 class Pair7 {
     double L,R;
 public:
@@ -132,7 +139,8 @@ public:
 };
 Pair7 make_pair7(double a,double b) { Pair7 p; p.init(a,b); return p; }
 
-/* ======== 8 ======== */
+
+//|~~~~~ 8
 class Pair8 {
     int L,R;
 public:
@@ -150,7 +158,8 @@ public:
 };
 Pair8 make_pair8(int a,int b) { Pair8 p; p.init(a,b); return p; }
 
-/* ======== 9 ======== */
+
+//|~~~~~ 9
 class Pair9 {
     int h,m;
 public:
@@ -168,7 +177,8 @@ public:
 };
 Pair9 make_pair9(int a,int b) { Pair9 p; p.init(a,b); return p; }
 
-/* ======== 10 ======== */
+
+//|~~~~~ 10
 class Pair10 {
     double A,B;
 public:
@@ -179,7 +189,8 @@ public:
 };
 Pair10 make_pair10(double a,double b) { Pair10 p; p.init(a,b); return p; }
 
-/* ======== 11 ======== */
+
+//|~~~~~ 11
 class Pair11 {
     double A,B;
 public:
@@ -197,7 +208,8 @@ public:
 };
 Pair11 make_pair11(double a,double b) { Pair11 p; p.init(a,b); return p; }
 
-/* ======== 12 ======== */
+
+//|~~~~~ 12
 class Pair12 {
     double x,y;
 public:
@@ -208,7 +220,8 @@ public:
 };
 Pair12 make_pair12(double a,double b) { Pair12 p; p.init(a,b); return p; }
 
-/* ======== 13 ======== */
+
+//|~~~~~ 13
 class Pair13 {
     double a,b;
 public:
@@ -226,7 +239,8 @@ public:
 };
 Pair13 make_pair13(double a,double b) { Pair13 p; p.init(a,b); return p; }
 
-/* ======== 14 ======== */
+
+//|~~~~~ 14
 class Pair14 {
     double sal;
     int days;
@@ -248,7 +262,8 @@ public:
 };
 Pair14 make_pair14(double a,int b) { Pair14 p; p.init(a,b); return p; }
 
-/* ======== 15 ======== */
+
+//|~~~~~ 15
 class Pair15 {
     int mins;
     double pr;
@@ -263,7 +278,8 @@ public:
 };
 Pair15 make_pair15(int a,double b) { Pair15 p; p.init(a,b); return p; }
 
-/* ======== 16 ======== */
+
+//|~~~~~ 16
 class Pair16 {
     double ip,fp;
 public:
@@ -277,7 +293,8 @@ public:
 };
 Pair16 make_pair16(double a,double b) { Pair16 p; p.init(a,b); return p; }
 
-/* ======== 17 ======== */
+
+//|~~~~~ 17
 class Pair17 {
     int x,y;
     int W=1920,H=1080;
@@ -304,7 +321,8 @@ public:
 };
 Pair17 make_pair17(int a,int b) { Pair17 p; p.init(a,b); return p; }
 
-/* ======== 18 ======== */
+
+//|~~~~~ 18
 class Pair18 {
     long long ip;
     unsigned long long fp;
@@ -324,7 +342,8 @@ public:
 };
 Pair18 make_pair18(long long a,unsigned long long b) { Pair18 p; p.init(a,b); return p; }
 
-/* ======== 19 ======== */
+
+//|~~~~~ 19
 class Pair19 {
     long long k,n;
 public:
@@ -346,7 +365,8 @@ public:
 };
 Pair19 make_pair19(long long a,long long b) { Pair19 p; p.init(a,b); return p; }
 
-/* ======== 20 ======== */
+
+//|~~~~~ 20
 class Pair20 {
     double a0,r;
 public:
