@@ -1,8 +1,9 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <windows.h>
+using namespace std;
 
-using namespace std; // 👈 добавили пространство имён std
 
 template <typename T>
 class SplayTree {
@@ -13,8 +14,8 @@ private:
         Node* right;
         Node(const T& k) : key(k), left(nullptr), right(nullptr) {}
     };
-
     Node* root = nullptr;
+
 
     void rotateRight(Node*& y) {
         Node* x = y->left;
@@ -22,7 +23,6 @@ private:
         x->right = y;
         y = x;
     }
-
     void rotateLeft(Node*& x) {
         Node* y = x->right;
         x->right = y->left;
@@ -81,9 +81,7 @@ private:
         }
 
         splay(root, key);
-
         if (key == root->key) return;
-
         Node* newNode = new Node(key);
 
         if (key < root->key) {
@@ -122,7 +120,6 @@ public:
     ~SplayTree() { clear(root); }
 
     void insert(const T& key) { insert(root, key); }
-
     void remove(const T& key) { root = remove(root, key); }
 
     bool find(const T& key) {
@@ -155,8 +152,15 @@ public:
     }
 };
 
-// ---------- Пример использования ----------
+
+
+
+
+// пример использования
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
     SplayTree<int> tree;
 
     tree.insert(10);
